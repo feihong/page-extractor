@@ -1,5 +1,5 @@
 
-pages = '5'
+pages = '10 42 45 46 47 49'
 input_file = '~/Books/[Mox.moe][火鳳燎原]第01卷.kepub.epub'
 
 from typing import List
@@ -17,8 +17,15 @@ ns = dict(opf='http://www.idpf.org/2007/opf', xhtml='http://www.w3.org/1999/xhtm
 def main():
   with zipfile.ZipFile(input_file) as zf:
     page_paths = get_page_paths(zf)
-    for path in get_image_paths(zf, page_paths):
-      print(path)
+    image_paths = list(get_image_paths(zf, page_paths))
+
+    for page in pages:
+      image_path = image_paths[page - 1]
+      image_ext = image_path.rsplit('.')[-1]
+      image_data = zf.read(image_path)
+      output_file = Path(f'{page}.{image_ext}')
+      output_file.write_bytes(image_data)
+      print(f'Wrote {output_file}')
 
 def get_page_paths(zf: zipfile.ZipFile):
   """
