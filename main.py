@@ -1,5 +1,5 @@
 
-pages = '10 42 45 46 47 49'
+pages = '10 42 45 46 47 49 75 78 114 131 134'
 input_file = '~/Books/[Mox.moe][火鳳燎原]第01卷.kepub.epub'
 
 from typing import List
@@ -10,6 +10,10 @@ import xml.etree.ElementTree
 
 pages = [int(s) for s in pages.strip().split(' ')]
 input_file = Path(input_file).expanduser()
+prefix = input_file.stem
+if prefix.endswith('.kepub'):
+  prefix = prefix[:-6]
+
 
 # Namespace dictionary for xpath queries:
 ns = dict(opf='http://www.idpf.org/2007/opf', xhtml='http://www.w3.org/1999/xhtml')
@@ -23,7 +27,7 @@ def main():
       image_path = image_paths[page - 1]
       image_ext = image_path.rsplit('.')[-1]
       image_data = zf.read(image_path)
-      output_file = Path(f'{page}.{image_ext}')
+      output_file = Path(f'{prefix} {page:03}.{image_ext}')
       output_file.write_bytes(image_data)
       print(f'Wrote {output_file}')
 
