@@ -6,4 +6,9 @@ Extract image files out of .kepub.ebub files
 
 Run the program to extract pages
 
-    python main.py
+    make
+
+## TODO
+
+- [ ] Put configuration in separate file
+- [ ] Support .cbz files

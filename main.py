@@ -5,7 +5,6 @@ input_file = '~/Books/火凤燎原/[Mox.moe][火鳳燎原]卷02.kepub.epub'
 from typing import List
 from pathlib import Path
 import zipfile
-import sys
 import xml.etree.ElementTree
 
 pages = [int(s) for s in pages.strip().split(' ')]
