@@ -1,6 +1,6 @@
 
-pages = '10 42 45 46 47 49 75 78 114 131 134'
-input_file = '~/Books/[Mox.moe][火鳳燎原]第01卷.kepub.epub'
+pages = '6 7 8 9 12 31 38 49 50 51 110 115 132 142 144 145 149 159'
+input_file = '~/Books/火凤燎原/[Mox.moe][火鳳燎原]卷02.kepub.epub'
 
 from typing import List
 from pathlib import Path
