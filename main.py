@@ -1,11 +1,9 @@
-
-pages = '6 7 8 9 12 31 38 49 50 51 110 115 132 142 144 145 149 159'
-input_file = '~/Books/火凤燎原/[Mox.moe][火鳳燎原]卷02.kepub.epub'
-
 from typing import List
 from pathlib import Path
 import zipfile
 import xml.etree.ElementTree
+
+from settings import pages, input_file
 
 pages = [int(s) for s in pages.strip().split(' ')]
 input_file = Path(input_file).expanduser()
@@ -22,13 +20,13 @@ def main():
     page_paths = get_page_paths(zf)
     image_paths = list(get_image_paths(zf, page_paths))
 
-    for page in pages:
+    for i, page in enumerate(pages, 1):
       image_path = image_paths[page - 1]
       image_ext = image_path.rsplit('.')[-1]
       image_data = zf.read(image_path)
       output_file = Path(f'{prefix} {page:03}.{image_ext}')
       output_file.write_bytes(image_data)
-      print(f'Wrote {output_file}')
+      print(f'Wrote {i}. {output_file}')
 
 def get_page_paths(zf: zipfile.ZipFile):
   """
