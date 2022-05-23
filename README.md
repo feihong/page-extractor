@@ -11,4 +11,5 @@ Run the program to extract pages
 ## TODO
 
 - [x] Put settings in separate file
+- [ ] Keep record of pages extracted
 - [ ] Support .cbz files

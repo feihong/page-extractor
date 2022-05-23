@@ -3,19 +3,19 @@ from pathlib import Path
 import zipfile
 import xml.etree.ElementTree
 
-from settings import pages, input_file
+from settings import books_dir
 
-pages = [int(s) for s in pages.strip().split(' ')]
-input_file = Path(input_file).expanduser()
-prefix = input_file.stem
-if prefix.endswith('.kepub'):
-  prefix = prefix[:-6]
-
+extractions_file = Path('extractions.txt')
 
 # Namespace dictionary for xpath queries:
 ns = dict(opf='http://www.idpf.org/2007/opf', xhtml='http://www.w3.org/1999/xhtml')
 
 def main():
+  input_file, pages = get_extraction_info()
+  prefix = input_file.stem
+  if prefix.endswith('.kepub'):
+    prefix = prefix[:-6]
+
   with zipfile.ZipFile(input_file) as zf:
     page_paths = get_page_paths(zf)
     image_paths = list(get_image_paths(zf, page_paths))
@@ -27,6 +27,13 @@ def main():
       output_file = Path(f'{prefix} {page:03}.{image_ext}')
       output_file.write_bytes(image_data)
       print(f'Wrote {i}. {output_file}')
+
+def get_extraction_info():
+  lines = extractions_file.read_text().strip().splitlines()
+  input_file, pages = lines[-2:]
+  input_file = (books_dir / input_file).expanduser()
+  pages = [int(s) for s in pages.strip().split(' ')]
+  return input_file, pages
 
 def get_page_paths(zf: zipfile.ZipFile):
   """
