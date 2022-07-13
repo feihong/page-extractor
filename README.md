@@ -4,6 +4,10 @@ Extract image files out of .kepub.ebub files
 
 ## Commands
 
-Run the program to extract pages
+Extract pages
 
     make extract
+
+Convert entries that don't yet have pages
+
+    make convert
