@@ -8,7 +8,7 @@ import convert
 
 def main():
   extraction = util.get_extraction()
-  if extraction.path.name.endswith('.kepub.epub'):
+  if extraction.is_kepub():
     input_file = convert.convert(extraction.path)
 
   prefix = extraction.path.stem

@@ -11,6 +11,9 @@ class Extraction:
     self.path = books_dir / line.strip()
     self.pages = None
 
+  def is_kepub(self):
+    return self.path.name.endswith('.kepub.epub')
+
 def get_extractions():
   """
   Parse the extractions file and return a sequence of Extraction objects
