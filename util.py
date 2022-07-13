@@ -31,19 +31,9 @@ def get_extractions():
     if latest is not None:
       yield latest
 
-def get_extraction_info():
+def get_extraction():
   """
-  Return tuple of the form (input_file, pages_list)
+  Return the last Extraction object that has pages
   """
-  lines = extractions_file.read_text().strip().splitlines()
-  last_line = lines[-1]
-  if re.match(r'\d+', last_line):
-    input_file = books_dir / lines[-2]
-    pages = [int(s) for s in last_line.strip().split(' ')]
-  else:
-    input_file = books_dir / last_line
-    pages = []
-
-  if not input_file.exists():
-    raise Exception(f'{input_file} does not exist!')
-  return input_file, pages
+  extractions = [e for e in get_extractions() if e.pages is not None]
+  return extractions[-1]

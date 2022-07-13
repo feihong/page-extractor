@@ -7,16 +7,16 @@ import util
 import convert
 
 def main():
-  input_file, pages = util.get_extraction_info()
-  if input_file.name.endswith('.kepub.epub'):
-    input_file = convert.convert(input_file)
+  extraction = util.get_extraction()
+  if extraction.path.name.endswith('.kepub.epub'):
+    input_file = convert.convert(extraction.path)
 
-  prefix = input_file.stem
+  prefix = extraction.path.stem
 
   with zipfile.ZipFile(input_file) as zf:
     image_paths = list(get_image_paths(zf))
 
-    for i, page in enumerate(pages, 1):
+    for i, page in enumerate(extraction.pages, 1):
       image_path = image_paths[page - 1]
       image_ext = image_path.rsplit('.')[-1]
       image_data = zf.read(image_path)
