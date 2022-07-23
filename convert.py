@@ -11,7 +11,7 @@ ns = dict(opf='http://www.idpf.org/2007/opf', xhtml='http://www.w3.org/1999/xhtm
 
 
 def convert(epub_file: Path):
-  output_file = Path(epub_file.name[:-11] + '.cbz')
+  output_file = epub_file.with_name(epub_file.name[:-11] + '.cbz')
 
   with zipfile.ZipFile(output_file, 'w') as zf:
     for image_filename, image_data in get_image_datas(epub_file):

@@ -2,5 +2,5 @@
 
 - [x] Put settings in separate file
 - [x] Keep record of pages extracted
-- [ ] Fix pages for .kepub.epub files
-- [ ] Support .cbz files
+- [x] Support .cbz files
+- [x] Add task to convert .kepub.epub files in ~/Downloads to .cbz files

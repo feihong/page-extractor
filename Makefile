@@ -2,7 +2,7 @@ extract:
 	python extract_pages.py
 
 convert:
-	python convert_pageless.py
+	python convert_downloads.py
 
 clean:
 	rm *.jpg
