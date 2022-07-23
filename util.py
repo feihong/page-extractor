@@ -31,9 +31,9 @@ def get_extractions():
     if latest is not None:
       yield latest
 
-def get_extraction():
+def get_last_extraction():
   """
-  Return the last Extraction object that has pages
+  Return the last Extraction object
   """
-  extractions = [e for e in get_extractions() if e.pages is not None]
+  extractions = list(get_extractions())
   return extractions[-1]

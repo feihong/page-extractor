@@ -11,7 +11,7 @@ import util
 ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 def main():
-  extraction = util.get_extraction()
+  extraction = util.get_last_extraction()
 
   prefix = extraction.path.stem
   curr_time = time.time() - ONE_DAY_IN_SECONDS
