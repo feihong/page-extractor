@@ -14,7 +14,7 @@ downloads_dir = Path('~/Downloads').expanduser()
 for epub_file in downloads_dir.glob('*.kepub.epub'):
   match = re.match(r'\[Mox\.moe\]\[(.*)\]', epub_file.name)
   if match:
-    cbz_file = convert.convert(epub_file)
+    cbz_file = convert.convert_epub_to_cbz(epub_file)
     dest_dir = util.books_dir / match.group(1)
     if not dest_dir.exists():
       dest_dir.mkdir()
