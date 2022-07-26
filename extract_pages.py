@@ -7,6 +7,7 @@ import time
 import os
 
 import util
+import convert
 
 ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
@@ -23,8 +24,11 @@ def main():
       image_path = image_paths[page - 1]
       image_ext = image_path.rsplit('.')[-1]
       image_data = zf.read(image_path)
-      output_file = Path(f'{prefix} {page:03}.{image_ext}')
-      output_file.write_bytes(image_data)
+      output_file_ = Path(f'{prefix} {page:03}.{image_ext}')
+      output_file_.write_bytes(image_data)
+
+      output_file = convert.convert_image_to_webp(output_file_)
+      os.remove(output_file_)
 
       # Change modified time so images appear in the expected order when
       # uploaded to Google Photos

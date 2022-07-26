@@ -4,6 +4,7 @@ Convert .kepub.epub file to .cbz file
 from pathlib import Path
 import zipfile
 import xml.etree.ElementTree
+import subprocess
 from typing import List
 
 # Namespace dictionary for xpath queries:
@@ -53,3 +54,16 @@ def get_image_paths(zf: zipfile.ZipFile, page_paths: List[str]):
       # Find the single img element on this page
       img = tree.find('.//xhtml:img', ns)
       yield img.attrib['src'][3:]  # chop off '../'
+
+def convert_image_to_webp(image_file):
+  output_file = image_file.with_suffix('.webp')
+  cmd = [
+    'cwebp',
+    image_file,
+    '-o', output_file,
+  ]
+  subprocess.run(cmd)
+  orig_size = image_file.stat().st_size
+  percent = float(orig_size - output_file.stat().st_size) / orig_size * 100.0
+  print(f'Converted {image_file} to {output_file} (reduced by {percent:0.2f}%)')
+  return output_file
