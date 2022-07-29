@@ -21,10 +21,14 @@ def main():
     image_paths = list(get_image_paths(zf))
 
     for i, page in enumerate(extraction.pages, 1):
-      image_path = image_paths[page - 1]
+      image_path = image_paths[page.value - 1]
       image_ext = image_path.rsplit('.')[-1]
       image_data = zf.read(image_path)
-      output_file_ = Path(f'{prefix} {page:03}.{image_ext}')
+      if page.crop is True:
+        crop_string = ' (cropped)'
+      else:
+        crop_string = ''
+      output_file_ = Path(f'{prefix} {page.value:03}{crop_string}.{image_ext}')
       output_file_.write_bytes(image_data)
 
       output_file, reduction_percent = convert.convert_image_to_webp(output_file_)

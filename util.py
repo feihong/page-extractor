@@ -11,6 +11,16 @@ class Extraction:
     self.path = books_dir / line.strip()
     self.pages = None
 
+class Page:
+  def __init__(self, s):
+    if s.endswith('c'):
+      self.crop = True
+      s = s[:-1]
+    else:
+      self.crop = False
+
+    self.value = int(s)
+
 def get_extractions():
   """
   Parse the extractions file and return a sequence of Extraction objects
@@ -22,8 +32,8 @@ def get_extractions():
       if latest is None:
         latest = Extraction(line)
       else:
-        if re.match(r'\d+([ ]\d+)*', line):
-          latest.pages = [int(s) for s in line.strip().split(' ')]
+        if re.match(r'\d+c?([ ]\d+c?)*', line):
+          latest.pages = [Page(s) for s in line.strip().split(' ')]
         else:
           yield latest
           latest = Extraction(line)
