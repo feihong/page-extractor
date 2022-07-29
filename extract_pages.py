@@ -27,13 +27,13 @@ def main():
       output_file_ = Path(f'{prefix} {page:03}.{image_ext}')
       output_file_.write_bytes(image_data)
 
-      output_file = convert.convert_image_to_webp(output_file_)
+      output_file, reduction_percent = convert.convert_image_to_webp(output_file_)
       os.remove(output_file_)
 
       # Change modified time so images appear in the expected order when
       # uploaded to Google Photos
       os.utime(output_file, times=(curr_time, curr_time))
-      print(f'Wrote {i}. {output_file}')
+      print(f'Wrote {i}. {output_file} (reduced by {reduction_percent:0.2f}%)')
       curr_time += 10
 
 def get_image_paths(zf: zipfile.ZipFile):

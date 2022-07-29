@@ -62,8 +62,9 @@ def convert_image_to_webp(image_file):
     image_file,
     '-o', output_file,
   ]
-  subprocess.run(cmd)
+  # Suppress output
+  subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
   orig_size = image_file.stat().st_size
-  percent = float(orig_size - output_file.stat().st_size) / orig_size * 100.0
-  print(f'Converted {image_file} to {output_file} (reduced by {percent:0.2f}%)')
-  return output_file
+  reduction_percent = float(orig_size - output_file.stat().st_size) / orig_size * 100.0
+  # print(f'Converted {image_file} to {output_file} (reduced by {reduction_percent:0.2f}%)')
+  return (output_file, reduction_percent)
