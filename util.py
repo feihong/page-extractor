@@ -19,6 +19,12 @@ class Page:
     else:
       self.crop = False
 
+    if s.endswith('s'):
+      self.special = True
+      s = s[:-1]
+    else:
+      self.special = False
+
     self.value = int(s)
 
 def get_extractions():
@@ -29,10 +35,14 @@ def get_extractions():
     latest = None
 
     for line in fp:
+      line = line.strip()
+      if line == '':
+        continue
+
       if latest is None:
         latest = Extraction(line)
       else:
-        if re.match(r'\d+c?([ ]\d+c?)*', line):
+        if re.match(r'\d+[cs]?([ ]\d+[cs]?)*', line):
           latest.pages = [Page(s) for s in line.strip().split(' ')]
         else:
           yield latest
