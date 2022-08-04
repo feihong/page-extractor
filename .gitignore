@@ -1,8 +1,5 @@
 .DS_Store
 __pycache__
 
-credentials.json
 settings.py
-*.jpg
 *.webp
-*.cbz

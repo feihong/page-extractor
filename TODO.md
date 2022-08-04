@@ -4,4 +4,4 @@
 - [x] Keep record of pages extracted
 - [x] Support .cbz files
 - [x] Add task to convert .kepub.epub files in ~/Downloads to .cbz files
-- [ ] Convert extracted images to webp format
+- [x] Convert extracted images to webp format
