@@ -5,3 +5,5 @@
 - [x] Support .cbz files
 - [x] Add task to convert .kepub.epub files in ~/Downloads to .cbz files
 - [x] Convert extracted images to webp format
+- [ ] Write parser for chengyu.txt
+- [ ] Write parser for webtoons.txt
